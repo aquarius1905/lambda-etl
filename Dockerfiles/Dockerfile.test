@@ -1,0 +1,16 @@
+FROM python:3.13-slim
+
+# 作業ディレクトリを作成
+WORKDIR /app
+
+# Poetry のインストールと依存パッケージの解決
+COPY pyproject.toml poetry.lock ./
+RUN pip install --upgrade pip \
+ && pip install poetry \
+ && poetry install --no-root
+
+# アプリケーションのコードをコピー
+COPY . .
+
+# デフォルトの実行コマンド（必要に応じて変更）
+CMD ["poetry", "run", "pytest"]

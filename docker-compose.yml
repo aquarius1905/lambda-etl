@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfiles/Dockerfile.dev
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: tail -f /dev/null
+    depends_on:
+      - localstack
+    environment:
+      - PYTHONPATH=/app
+
+  localstack:
+    image: localstack/localstack:3.3
+    environment:
+      - SERVICES=s3
+    ports:
+      - "4566:4566"
