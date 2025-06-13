@@ -3,15 +3,16 @@ FROM python:3.13-slim
 # 作業ディレクトリを作成
 WORKDIR /app
 
-# 初回は poetry.lock が存在しないため COPY しない
+# 依存関係のインストール
 COPY pyproject.toml ./
 
 RUN pip install --upgrade pip \
  && pip install poetry \
  && poetry lock \
  && poetry install --no-root
+
 # アプリケーションのコードをコピー
 COPY . .
 
-# デフォルトの実行コマンド
+# デフォルトの実行コマンド（起動後にコンテナをすぐ終了させないため）
 CMD ["/bin/bash"]
