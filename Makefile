@@ -4,13 +4,13 @@ up:
 	docker-compose up --build
 
 test:
-	poetry run pytest --cov=app tests/
+	docker-compose run --rm app poetry run pytest --cov=app tests/
 
 lint:
-	poetry run flake8 app tests
+	docker-compose run --rm app poetry run flake8 app tests
 
 format:
-	poetry run black app tests
+	docker-compose run --rm app poetry run black app tests
 
 help:
 	@echo "make up      # Dockerで開発環境を起動"
