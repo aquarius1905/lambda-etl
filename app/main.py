@@ -1,9 +1,10 @@
 import json
+import os
 from app.core.schema import SQSMessageBody
 from app.core.csv_writer import generate_csv
 from app.core.s3_uploader import upload_to_s3
 
-BUCKET_NAME = "your-bucket-name"
+BUCKET_NAME = os.environ.get("S3_BUCKET_NAME", "your-bucket-name")
 KEY_PREFIX = "etl-output"
 
 def lambda_handler(event, context):
@@ -14,7 +15,7 @@ def lambda_handler(event, context):
 
         # スキーマバリデーション
         payload = SQSMessageBody(**parsed_json)
-        records = [record.dict() for record in payload.records]
+        records = [record.model_dump() for record in payload.records]
 
         # CSV変換
         csv_data = generate_csv(records)
@@ -31,7 +32,6 @@ def lambda_handler(event, context):
         }
 
     except Exception as e:
-        print(f"Error processing the event: {e}")
         return {
             "statusCode": 500,
             "body": json.dumps({
