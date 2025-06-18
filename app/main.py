@@ -1,12 +1,10 @@
 import json
-import os
 import logging
+from app.core.config import settings
 from app.core.schema import SQSMessageBody
 from app.core.csv_writer import generate_csv
 from app.core.s3_uploader import upload_to_s3
 
-BUCKET_NAME = os.environ.get("S3_BUCKET_NAME", "your-bucket-name")
-KEY_PREFIX = "etl-output"
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -33,7 +31,7 @@ def lambda_handler(event, context):
         csv_data = generate_csv(records)
 
         # S3にアップロード
-        object_key = upload_to_s3(BUCKET_NAME, KEY_PREFIX, csv_data)
+        object_key = upload_to_s3(settings.s3_bucket_name, settings.key_prefix, csv_data)
 
         logger.info(f"CSV生成完了: {len(records)}件のレコードを処理")
         logger.info(f"S3アップロード完了: {object_key}")
