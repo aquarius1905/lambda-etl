@@ -27,7 +27,8 @@ class TestLambdaHandler:
         response = lambda_handler(event, None)
         
         # 自分のコードが正しくS3クライアントを呼び出したかを検証
-        mock_boto3_client.assert_called_with('s3')
+        # 環境変数AWS_ENDPOINT_URLが設定されているため、endpoint_urlパラメータ付きで呼ばれる
+        mock_boto3_client.assert_called_with('s3', endpoint_url='http://localhost:4566')
         mock_s3.put_object.assert_called_once()
         
         # put_objectの引数をより詳しく検証
