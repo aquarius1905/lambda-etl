@@ -1,6 +1,5 @@
 from unittest.mock import patch, MagicMock
 import json
-import pytest
 from app.main import lambda_handler
 
 class TestLambdaHandler:
