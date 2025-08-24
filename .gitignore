@@ -1,0 +1,16 @@
+# Pythonキャッシュ
+__pycache__/
+*.pyc
+
+# pytestキャッシュ
+.pytest_cache/
+
+# coverageレポート
+htmlcov/
+*.coverage
+
+# 仮想環境（必要に応じて）
+.venv/
+
+# Dockerログ
+*.log
