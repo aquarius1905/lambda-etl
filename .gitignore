@@ -7,10 +7,12 @@ __pycache__/
 
 # coverageレポート
 htmlcov/
-*.coverage
 
 # 仮想環境（必要に応じて）
 .venv/
+
+# 環境変数ファイル
+.env
 
 # Dockerログ
 *.log

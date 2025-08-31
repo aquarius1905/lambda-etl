@@ -1,18 +1,21 @@
 # lambda-etl-template
 
-このリポジトリは、Zenn有料本
-**『AWS Lambda × SQS × S3で作るPython製ETL処理テンプレート』**
+このリポジトリは、Zenn 有料本
+**『AWS Lambda × SQS × S3 で作る Python 製 ETL 処理テンプレート』**
 のサンプルコードです。
 
 ## ご利用方法
+
 - 詳細な手順や解説は本書に記載しています。
 - 本リポジトリ単体では利用方法が分かりませんので、必ず本書とあわせてご参照ください。
 
 ## 動作環境
-- Python 3.13
+
+- Python 3.12
 - Docker / docker-compose
 - Poetry
 
 ## 注意事項
+
 - 本リポジトリは購入者特典として提供しています。
 - 外部への共有はご遠慮ください。
