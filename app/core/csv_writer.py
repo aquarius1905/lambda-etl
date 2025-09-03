@@ -2,6 +2,7 @@ import csv
 from typing import List, Dict
 from io import StringIO
 
+
 def generate_csv(records: List[Dict]) -> str:
     if not records:
         raise ValueError("CSV出力対象のデータが空です")
