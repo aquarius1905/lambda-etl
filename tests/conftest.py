@@ -9,8 +9,7 @@ def setup_test_env():
     test_settings = Settings(
         s3_bucket_name="test-bucket",
         key_prefix="test-output",
-        aws_endpoint_url="http://localhost:4566",
-        aws_region="ap-northeast-1",
+        aws_endpoint_url="http://localstack:4566",
     )
 
     with patch("app.core.config.settings", test_settings):
