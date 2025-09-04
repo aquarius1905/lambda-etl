@@ -1,12 +1,11 @@
 import boto3
-import os
 from datetime import datetime, UTC
+from app.core.config import settings
 
 
 def get_s3_client():
-    endpoint_url = os.environ.get("AWS_ENDPOINT_URL")
-    if endpoint_url:
-        return boto3.client("s3", endpoint_url=endpoint_url)
+    if settings.aws_endpoint_url:
+        return boto3.client("s3", endpoint_url=settings.aws_endpoint_url)
     return boto3.client("s3")
 
 

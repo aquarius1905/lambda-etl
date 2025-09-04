@@ -52,26 +52,30 @@ def lambda_handler(event, context):
         }
 
     except json.JSONDecodeError as e:
-        logger.error(f"JSON解析エラー: {str(e)}")
+        error_msg = f"JSON解析エラー: {str(e)}"
+        logger.error(error_msg)
         return {
             "statusCode": 400,
-            "body": json.dumps({"error": f"JSON解析エラー: {str(e)}"}),
+            "body": json.dumps({"error": error_msg}),
         }
     except ValidationError as e:
-        logger.error(f"バリデーションエラー: {str(e)}")
+        error_msg = f"バリデーションエラー: {str(e)}"
+        logger.error(error_msg)
         return {
             "statusCode": 400,
-            "body": json.dumps({"error": f"バリデーションエラー: {str(e)}"}),
+            "body": json.dumps({"error": error_msg}),
         }
     except ValueError as e:
-        logger.error(f"バリデーションエラー: {str(e)}")
+        error_msg = f"データエラー発生: {str(e)}"
+        logger.error(error_msg)
         return {
             "statusCode": 400,
-            "body": json.dumps({"error": f"バリデーションエラー: {str(e)}"}),
+            "body": json.dumps({"error": error_msg}),
         }
     except Exception as e:
-        logger.error(f"予期しないエラー: {str(e)}")
+        error_msg = f"予期しないエラー: {str(e)}"
+        logger.error(error_msg)
         return {
             "statusCode": 500,
-            "body": json.dumps({"error": f"予期しないエラー: {str(e)}"}),
+            "body": json.dumps({"error": error_msg}),
         }
