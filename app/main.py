@@ -5,13 +5,14 @@ from app.core.schema import SQSMessageBody
 from app.core.csv_writer import generate_csv
 from app.core.s3_uploader import upload_to_s3
 from pydantic import ValidationError
+from typing import Dict, Any
 
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def lambda_handler(event, context):
+def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     logger.info(f"処理開始: {len(event.get('Records', []))}件のメッセージを受信")
 
     try:
