@@ -1,5 +1,7 @@
 from app.core.csv_writer import generate_csv
 from app.core.schema import DataRecord, SQSMessageBody
+from app.core.s3_uploader import upload_to_s3
+from unittest.mock import patch, MagicMock
 import pytest
 
 
@@ -44,3 +46,16 @@ class TestSchema:
 
         assert len(message.records) == 1
         assert message.records[0].user_id == 1
+
+
+class TestS3Uploader:
+    @patch("app.core.s3_uploader.boto3.client")
+    def test_upload_to_s3_success(self, mock_boto3_client):
+        mock_s3 = MagicMock()
+        mock_boto3_client.return_value = mock_s3
+
+        result = upload_to_s3("test-bucket", "test-prefix", "csv,data")
+
+        assert result.startswith("test-prefix/output_")
+        assert result.endswith(".csv")
+        mock_s3.put_object.assert_called_once()
