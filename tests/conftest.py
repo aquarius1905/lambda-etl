@@ -7,9 +7,9 @@ from app.core.config import Settings
 def setup_test_env():
     """テスト用の設定をモック化"""
     test_settings = Settings(
-        s3_bucket_name="test-bucket",
-        key_prefix="test-output",
-        aws_endpoint_url="http://localstack:4566",
+        S3_BUCKET_NAME="test-bucket",
+        KEY_PREFIX="test-output",
+        AWS_ENDPOINT_URL="http://localstack:4566",
     )
 
     with patch("app.core.config.settings", test_settings):
