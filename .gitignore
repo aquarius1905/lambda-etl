@@ -9,7 +9,7 @@ __pycache__/
 htmlcov/
 .coverage
 
-# 仮想環境（必要に応じて）
+# 仮想環境
 .venv/
 
 # 環境変数ファイル
@@ -17,3 +17,12 @@ htmlcov/
 
 # Dockerログ
 *.log
+
+# CDK関連
+cdk.out/
+*.d.ts
+*.js.map
+
+# Node.js関連
+node_modules/
+npm-debug.log*
