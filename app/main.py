@@ -1,9 +1,9 @@
 import json
 import logging
-from core.config import settings
-from core.schema import SQSMessageBody
-from core.csv_writer import generate_csv
-from core.s3_uploader import upload_to_s3
+from app.core.config import settings
+from app.core.schema import SQSMessageBody
+from app.core.csv_writer import generate_csv
+from app.core.s3_uploader import upload_to_s3
 from pydantic import ValidationError
 from typing import Dict, Any
 

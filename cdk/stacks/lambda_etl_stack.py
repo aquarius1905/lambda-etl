@@ -54,8 +54,8 @@ class LambdaEtlStack(Stack):
             runtime=_lambda.Runtime.PYTHON_3_12,
             handler="main.lambda_handler",
             code=_lambda.Code.from_asset(
-                path="../app",
-                exclude=["tests", "__pycache__", "*.pyc"]
+                path="../",  # プロジェクトルート
+                exclude=["tests", "__pycache__", "*.pyc", "cdk", ".git", ".venv"]
             ),
             timeout=Duration.minutes(3),
             memory_size=256,

@@ -1,6 +1,6 @@
 import boto3
 from datetime import datetime, UTC
-from core.config import settings
+from app.core.config import settings
 
 
 def get_s3_client():
