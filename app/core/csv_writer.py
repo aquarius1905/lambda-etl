@@ -1,6 +1,6 @@
 import csv
-from typing import List, Dict
 from io import StringIO
+from typing import Dict, List
 
 
 def generate_csv(records: List[Dict]) -> str:

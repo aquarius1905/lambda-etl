@@ -18,10 +18,10 @@ class LambdaEtlStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # S3バケットの作成
-        etl_bucket = s3.Bucket(
+        etl_bucket = s3s.Bucket(
             self,
             "EtlBucket",
-            bucket_name=f"lambda-etl-bucket-{self.account}-{self.region}",
+            bucket_name=f"lambda-etl-bucket",
             removal_policy=RemovalPolicy.DESTROY,  # 開発環境用（本番では要注意）
             auto_delete_objects=True,  # 開発環境用（本番では要注意）
             versioned=False,
@@ -42,8 +42,8 @@ class LambdaEtlStack(Stack):
                     self,
                     "EtlDlq",
                     queue_name="lambda-etl-dlq",
-                )
-            )
+                ),
+            ),
         )
 
         # Lambda関数の作成
@@ -55,7 +55,7 @@ class LambdaEtlStack(Stack):
             handler="main.lambda_handler",
             code=_lambda.Code.from_asset(
                 path="../",  # プロジェクトルート
-                exclude=["tests", "__pycache__", "*.pyc", "cdk", ".git", ".venv"]
+                exclude=["tests", "__pycache__", "*.pyc", "cdk", ".git", ".venv"],
             ),
             timeout=Duration.minutes(3),
             memory_size=256,
@@ -85,29 +85,20 @@ class LambdaEtlStack(Stack):
 
         # 出力：他のスタックや手動テストで使用するため
         CfnOutput(
-            self,
-            "BucketName",
-            value=etl_bucket.bucket_name,
-            description="S3バケット名"
+            self, "BucketName", value=etl_bucket.bucket_name, description="S3バケット名"
         )
 
         CfnOutput(
-            self,
-            "QueueUrl",
-            value=etl_queue.queue_url,
-            description="SQSキューURL"
+            self, "QueueUrl", value=etl_queue.queue_url, description="SQSキューURL"
         )
 
         CfnOutput(
-            self,
-            "QueueName",
-            value=etl_queue.queue_name,
-            description="SQSキュー名"
+            self, "QueueName", value=etl_queue.queue_name, description="SQSキュー名"
         )
 
         CfnOutput(
             self,
             "FunctionName",
             value=etl_function.function_name,
-            description="Lambda関数名"
+            description="Lambda関数名",
         )

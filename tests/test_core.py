@@ -1,8 +1,10 @@
-from app.core.csv_writer import generate_csv
-from app.core.schema import DataRecord, SQSMessageBody
-from app.core.s3_uploader import upload_to_s3
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 import pytest
+
+from app.core.csv_writer import generate_csv
+from app.core.s3_uploader import upload_to_s3
+from app.core.schema import DataRecord, SQSMessageBody
 
 
 class TestCSVWriter:

@@ -1,12 +1,14 @@
 import json
 import logging
+from typing import Any, Dict
+
+from botocore.exceptions import ClientError, NoCredentialsError
+from pydantic import ValidationError
+
 from app.core.config import settings
-from app.core.schema import SQSMessageBody
 from app.core.csv_writer import generate_csv
 from app.core.s3_uploader import upload_to_s3
-from pydantic import ValidationError
-from typing import Dict, Any
-
+from app.core.schema import SQSMessageBody
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -52,6 +54,14 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             ),
         }
 
+    except ClientError as e:
+        error_msg = f"AWS API エラー: {str(e)}"
+        logger.error(error_msg)
+        return {"statusCode": 500, "body": json.dumps({"error": error_msg})}
+    except NoCredentialsError as e:
+        error_msg = f"AWS認証エラー: 認証情報が見つかりません。str{e}"
+        logger.error(error_msg)
+        return {"statusCode": 500, "body": json.dumps({"error": error_msg})}
     except json.JSONDecodeError as e:
         error_msg = f"JSON解析エラー: {str(e)}"
         logger.error(error_msg)
