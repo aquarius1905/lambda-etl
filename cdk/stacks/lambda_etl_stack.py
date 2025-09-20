@@ -10,7 +10,6 @@ from aws_cdk import (
     CfnOutput,
 )
 from constructs import Construct
-import os
 
 
 class LambdaEtlStack(Stack):
@@ -18,10 +17,10 @@ class LambdaEtlStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # S3バケットの作成
-        etl_bucket = s3s.Bucket(
+        etl_bucket = s3.Bucket(
             self,
             "EtlBucket",
-            bucket_name=f"lambda-etl-bucket",
+            bucket_name=f"lambda-etl-bucket-{self.account}-{self.region}",
             removal_policy=RemovalPolicy.DESTROY,  # 開発環境用（本番では要注意）
             auto_delete_objects=True,  # 開発環境用（本番では要注意）
             versioned=False,
