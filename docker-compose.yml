@@ -13,10 +13,3 @@ services:
       - .env
     environment:
       - PYTHONPATH=/app
-
-  localstack:
-    image: localstack/localstack:3.3
-    environment:
-      - SERVICES=s3,sqs
-    ports:
-      - "4566:4566"
