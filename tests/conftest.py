@@ -11,7 +11,6 @@ def setup_test_env():
     test_settings = Settings(
         S3_BUCKET_NAME="test-bucket",
         KEY_PREFIX="test-output",
-        AWS_ENDPOINT_URL="http://localstack:4566",
     )
 
     with patch("app.core.config.settings", test_settings):
