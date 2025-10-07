@@ -46,7 +46,7 @@ class TestLambdaHandler:
 
         # put_objectの引数をより詳しく検証
         call_args = mock_s3.put_object.call_args
-        assert call_args[1]["Bucket"] == "lambda-etl-bucket"
+        assert call_args[1]["Bucket"] == "test-bucket"
         assert call_args[1]["Key"].startswith("etl-output/output_")
         assert call_args[1]["Key"].endswith(".csv")
         assert call_args[1]["ContentType"] == "text/csv"
