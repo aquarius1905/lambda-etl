@@ -21,3 +21,7 @@ htmlcov/
 # Node.js関連
 node_modules/
 npm-debug.log*
+
+# デプロイ関連
+deploy-package/
+lambda-etl-function.zip
