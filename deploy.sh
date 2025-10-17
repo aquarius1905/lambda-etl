@@ -22,6 +22,12 @@ rm -f lambda-etl-function.zip
 echo "デプロイ用ディレクトリを作成..."
 mkdir deploy-package
 
+# 依存ライブラリをインストール
+echo "依存ライブラリをインストール..."
+poetry export -f requirements.txt --output requirements.txt --without-hashes --only main
+pip install -r requirements.txt -t deploy-package/
+rm requirements.txt
+
 # appディレクトリをコピー（不要なファイルを除外）
 echo "アプリケーションコードをコピー..."
 rsync -av \
