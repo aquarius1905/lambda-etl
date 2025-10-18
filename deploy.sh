@@ -24,10 +24,8 @@ mkdir deploy-package
 
 # 依存ライブラリをインストール
 echo "依存ライブラリをインストール..."
-poetry export -f requirements.txt --output requirements.txt --without-hashes --only main
-pip install -r requirements.txt -t deploy-package/
-rm requirements.txt
-
+pip install boto3 pydantic pydantic-settings -t deploy-package/
+s
 # appディレクトリをコピー（不要なファイルを除外）
 echo "アプリケーションコードをコピー..."
 rsync -av \
