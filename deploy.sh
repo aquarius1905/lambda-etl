@@ -22,9 +22,16 @@ rm -f lambda-etl-function.zip
 echo "デプロイ用ディレクトリを作成..."
 mkdir deploy-package
 
-# 依存ライブラリをインストール
-echo "依存ライブラリをインストール..."
-pip install boto3 pydantic pydantic-settings -t deploy-package/
+# 依存ライブラリをインストール（Linux用）
+echo "依存ライブラリをインストール（Linux x86_64用）..."
+pip install \
+  --platform manylinux2014_x86_64 \
+  --target=deploy-package \
+  --implementation cp \
+  --python-version 3.12 \
+  --only-binary=:all: \
+  --upgrade \
+  boto3 pydantic pydantic-settings
 
 # appディレクトリをコピー（不要なファイルを除外）
 echo "アプリケーションコードをコピー..."
@@ -62,5 +69,5 @@ read -p "パッケージ内容を確認しますか? (y/N): " confirm
 if [[ $confirm == [yY] ]]; then
     echo ""
     echo "=== パッケージ内容 ==="
-    unzip -l lambda-etl-function.zip
+    unzip -l lambda-etl-function.zip | head -30
 fi
